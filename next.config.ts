@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {},
   /* config options here */
   images: {
     domains: ['maps.googleapis.com'], // <-- Add this
@@ -14,9 +15,6 @@ const nextConfig: NextConfig = {
       'leaflet.markercluster': 'leaflet.markercluster/dist/leaflet.markercluster-src.js',
     };
     return config;
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 };
 
