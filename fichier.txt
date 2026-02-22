@@ -1,0 +1,147 @@
+Structure du dossier
+Le numéro de série du volume est C095-9D85
+C:\USERS\33656\DOWNLOADS\VISIL_OO\SRC
+¦   middleware.ts
+¦   
++---app
+¦   ¦   favicon.ico
+¦   ¦   globals.css
+¦   ¦   
+¦   +---api
+¦   ¦   +---auth
+¦   ¦       +---[...nextauth]
+¦   ¦               route.ts
+¦   ¦               
+¦   +---[locale]
+¦       ¦   layout.tsx
+¦       ¦   providers.tsx
+¦       ¦   
+¦       +---(dashboard)
+¦       ¦   +---dashboard
+¦       ¦       ¦   layout.tsx
+¦       ¦       ¦   page.tsx
+¦       ¦       ¦   
+¦       ¦       +---assistant
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---locations
+¦       ¦       ¦   ¦   page.tsx
+¦       ¦       ¦   ¦   
+¦       ¦       ¦   +---[locationId]
+¦       ¦       ¦       ¦   page.tsx
+¦       ¦       ¦       ¦   
+¦       ¦       ¦       +---edit
+¦       ¦       ¦       ¦       page.tsx
+¦       ¦       ¦       ¦       
+¦       ¦       ¦       +---presence
+¦       ¦       ¦               page.tsx
+¦       ¦       ¦               
+¦       ¦       +---messages
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---posts
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---qr-config
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---reviews
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---settings
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---statistics
+¦       ¦       ¦       page.tsx
+¦       ¦       ¦       
+¦       ¦       +---_components
+¦       ¦               Header.tsx
+¦       ¦               Sidebar.tsx
+¦       ¦               StatCard.tsx
+¦       ¦               
+¦       +---(landing)
+¦       ¦   ¦   layout.tsx
+¦       ¦   ¦   page.tsx
+¦       ¦   ¦   
+¦       ¦   +---pricing
+¦       ¦           page.tsx
+¦       ¦           
+¦       +---create-location
+¦               page.tsx
+¦               
++---components
+¦   +---layout
+¦   ¦       CTA.tsx
+¦   ¦       Features.tsx
+¦   ¦       Footer.tsx
+¦   ¦       Hero.tsx
+¦   ¦       Navbar.tsx
+¦   ¦       Newsletter.tsx
+¦   ¦       SocialProof.tsx
+¦   ¦       
+¦   +---ui
+¦           alert-dialog.tsx
+¦           avatar.tsx
+¦           badge.tsx
+¦           breadcrumb.tsx
+¦           button.tsx
+¦           card.tsx
+¦           carousel.tsx
+¦           chart.tsx
+¦           checkbox.tsx
+¦           collapsible.tsx
+¦           command.tsx
+¦           dialog.tsx
+¦           drawer.tsx
+¦           dropdown-menu.tsx
+¦           hover-card.tsx
+¦           input.tsx
+¦           label.tsx
+¦           navigation-menu.tsx
+¦           pagination.tsx
+¦           popover.tsx
+¦           scroll-area.tsx
+¦           select.tsx
+¦           separator.tsx
+¦           sheet.tsx
+¦           sidebar.tsx
+¦           skeleton.tsx
+¦           sonner.tsx
+¦           switch.tsx
+¦           table.tsx
+¦           tabs.tsx
+¦           textarea.tsx
+¦           toggle-group.tsx
+¦           toggle.tsx
+¦           tooltip.tsx
+¦           
++---hooks
+¦       use-mobile.ts
+¦       
++---lib
+¦   ¦   authOptions.ts
+¦   ¦   constants.ts
+¦   ¦   prismadb.ts
+¦   ¦   types.ts
+¦   ¦   utils.ts
+¦   ¦   validation.ts
+¦   ¦   
+¦   +---otp
+¦           otpUtils.ts
+¦           redis.ts
+¦           sendMail.ts
+¦           
++---locales
+¦       client.ts
+¦       de.ts
+¦       en.ts
+¦       es.ts
+¦       fr.ts
+¦       i18n.ts
+¦       it.ts
+¦       pt.ts
+¦       server.ts
+¦       
++---services
+        presence.service.ts
+        
