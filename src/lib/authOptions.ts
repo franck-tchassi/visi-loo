@@ -1,53 +1,19 @@
 // lib/authOptions.ts
 
 
-import { AuthOptions, DefaultSession } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import AzureADProvider from "next-auth/providers/azure-ad";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { AuthConfig } from "@auth/core";
+import Credentials from "@auth/core/providers/credentials";
+import Google from "@auth/core/providers/google";
+import AzureAD from "@auth/core/providers/azure-ad";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prismadb";
 import bcrypt from "bcryptjs";
 
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      role: import("@/lib/types").Role;
-      planId?: string;
-      provider?: string;
-    } & DefaultSession["user"];
-  }
-
-  interface User {
-    role: import("@/lib/types").Role;
-    hashedPassword?: string;
-    planId?: string;
-    stripeSubscriptionId?: string;
-  }
-
-  interface Account {
-    access_token?: string;
-  }
-}
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    id?: string;
-    role?: import("@/lib/types").Role;
-    planId?: string;
-    provider?: string;
-    accessToken?: string;
-    isPremium?: boolean;
-    name?: string;
-  }
-}
-
-export const authOptions: AuthOptions = {
+export const authConfig: AuthConfig = {
   adapter: PrismaAdapter(prisma),
   providers: [
     // 1. Google Provider
-    GoogleProvider({
+    Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true, // IMPORTANT: Permet de lier ce compte Google à un compte existant avec le même email
@@ -72,10 +38,9 @@ export const authOptions: AuthOptions = {
     }),
     
     // 2. Microsoft Provider
-    AzureADProvider({
+    AzureAD({
       clientId: process.env.MICROSOFT_CLIENT_ID!,
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
-      tenantId: "common",
       allowDangerousEmailAccountLinking: true, // IMPORTANT: Idem pour Microsoft
       authorization: {
         params: {
@@ -94,7 +59,7 @@ export const authOptions: AuthOptions = {
     }),
 
     // 3. Credentials Provider (Email/Password)
-    CredentialsProvider({
+    Credentials({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -107,7 +72,7 @@ export const authOptions: AuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: { 
-            email: credentials.email.toLowerCase().trim() 
+            email: (credentials.email as string).toLowerCase().trim() 
           },
         });
 
@@ -121,7 +86,7 @@ export const authOptions: AuthOptions = {
         }
 
         const isValid = await bcrypt.compare(
-          credentials.password,
+          credentials.password as string,
           user.hashedPassword
         );
 
@@ -164,7 +129,7 @@ export const authOptions: AuthOptions = {
         token.accessToken = account.access_token; // Stockage du token Gmail/Outlook
         token.provider = account.provider;
         
-        if (user.role) token.role = user.role;
+        if ("role" in user && user.role) token.role = user.role;
       }
 
       // Mise à jour de session (ex: changement de plan)
@@ -194,7 +159,7 @@ export const authOptions: AuthOptions = {
       if (session.user) {
         session.user.id = token.id as string;
         const { Role } = require("@/lib/types");
-        session.user.role = token.role ?? Role.ORG_VIEWER;
+        (session.user as any).role = token.role ?? Role.ORG_VIEWER;
         // session.user.planId = token.planId as string; // Removed to correct the error
         // @ts-ignore
         session.user.provider = token.provider as string;

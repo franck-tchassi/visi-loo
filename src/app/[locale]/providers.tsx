@@ -3,7 +3,6 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { I18nProviderClient } from '@/locales/client';
-import { SessionProvider } from "next-auth/react";
 import React, { PropsWithChildren, useState } from 'react';
 
 const Providers = (props: PropsWithChildren<{ locale: string }>) => {
@@ -21,13 +20,11 @@ const Providers = (props: PropsWithChildren<{ locale: string }>) => {
   );
 
   return (
-    <SessionProvider>
-      <QueryClientProvider client={queryClient}>
-        <I18nProviderClient locale={props.locale}>
-          {props.children}
-        </I18nProviderClient>
-      </QueryClientProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <I18nProviderClient locale={props.locale}>
+        {props.children}
+      </I18nProviderClient>
+    </QueryClientProvider>
   );
 };
 
